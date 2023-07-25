@@ -1,13 +1,17 @@
 import dotenv from 'dotenv';
 import Http from 'http';
 import { ExpressApp } from './app';
-import sequelize from './db/sequelize';
+import sequelize from '../src/db/sequelize';
+
+
 
 dotenv.config();
+
 
 export class Server {
   expressApp = new ExpressApp();
   httpServer;
+
 
   constructor() {
     this.httpServer = new Http.Server(this.expressApp.app);
@@ -45,6 +49,7 @@ export class Server {
   serverErrorHandler = (error) => {
     console.log('Server run error: ', error.message);
   };
+
 }
 
 const server = new Server();
