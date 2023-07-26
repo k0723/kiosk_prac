@@ -7,8 +7,11 @@ item.init(
     name: DataTypes.STRING,
     option_id: DataTypes.BIGINT,
     price : DataTypes.BIGINT,
-    type : ENUMDataTypes.ENUM,
-    amount : DataTypes.BIGINT
+    defaultValue : 0,
+    type : DataTypes.ENUM("coffee","juice","food"),
+    amount : DataTypes.BIGINT,
+    createdAt: DataTypes.TIME,
+    updatedAt: DataTypes.TIME,
   },
   {
     sequelize,

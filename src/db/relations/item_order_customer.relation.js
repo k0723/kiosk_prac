@@ -3,7 +3,7 @@ import order_customer from "../models/order_customer"
 import item_order_customer from "../models/item_order_customer";
 
 export default () => {
-  item_order_customer.hasMany(order_customer, {
+  item_order_customer.belongsTo(order_customer, {
     sourceKey: 'id',
     foreignKey: 'order_customer_id',
   });

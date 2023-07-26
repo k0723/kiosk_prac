@@ -6,8 +6,8 @@ import order_customer from "../models/order_customer";
 
 export default () => {
   item.belongsTo(option, {
-    targetKey: 'option_id',
-    foreignKey: 'id',
+    targetKey: 'id',
+    foreignKey: 'option_id',
   });
 
   item.hasMany(order_item, {
