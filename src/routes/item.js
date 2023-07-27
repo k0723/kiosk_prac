@@ -88,5 +88,62 @@ router.get('/search/:type_select', async (req, res) => {
   }
 });
 
+//1차 삭제 
+
+router.delete('/:itemId', async (req, res) => {
+  try {
+    const { itemId } = req.params;
+    const item_search = await item.findOne({ where: { id: itemId } });
+    if (!itemId) {
+      res.status(404).json({
+        message: 'itemId not found',
+      });
+    }
+    console.log(item_search)
+    if (item_search.amount == 0) {
+      await item.destroy({
+        where: {
+          id: itemId,
+        },
+      });
+      res.status(200).json({
+        message: `${item_search.name} has been deleted`,
+      });
+    }
+
+    else {
+      res.status(200).json({
+        message: '현재 수량이 남아있습니다. 삭제하시겠습니까?',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: 'Internal Server Error',
+    });
+  }
+});
+
+//2차 삭제
+
+router.delete('/ignore/:itemId', async (req, res) => {
+  try {
+    const { itemId } = req.params;
+
+    await item.destroy({
+      where: {
+        id: itemId,
+      },
+    });
+
+    res.status(200).json({
+      message: 'ignore deleted',
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Internal Server Error',
+    });
+  }
+});
+
 
 module.exports = router;
