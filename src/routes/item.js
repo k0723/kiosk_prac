@@ -1,5 +1,5 @@
 import express from 'express';
-import middleware from '../middleware/middleware';
+// import middleware from '../middleware/middleware';
 import { option, item } from '../db';
 
 const router = express.Router();
@@ -40,7 +40,7 @@ router.post('/add', async (req, res) => {
     });
   }
 });
-
+// 조회
 router.get('/search', async (req, res) => {
   try {
 
@@ -145,5 +145,48 @@ router.delete('/ignore/:itemId', async (req, res) => {
   }
 });
 
+// 댓글 수정
 
+router.put('/:itemId', async (req, res) => {
+  try {
+    const { itemId } = req.params;
+    const { name,option_id,price,type,amount } = req.body;
+
+    let item_find = await item.findOne({
+      where: {
+        id: itemId,
+      },
+    });
+    console.log(item_find)
+    if (!item_find) {
+      res.status(404).json({
+        message: 'item not found',
+      });
+    }
+    console.log(name);
+    console.log(name);
+    if(name===undefined || name === null || name =="")
+    {
+      return res.status(200).json({ message:'이름을 입력해주세요' });
+    }
+    if(price < 0)
+    {
+      return res.status(400).json({ message:'알 맞은 가격을 입력해주세요' });
+    }
+    item_find = await item.update(
+      { name,option_id,price,type,amount },
+      {
+        where: {
+          id: itemId,
+        },
+      },
+    );
+
+    res.status(200).json({ message:'sucess' });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Internal Server Error',
+    });
+  }
+});
 module.exports = router;
