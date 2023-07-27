@@ -41,5 +41,52 @@ router.post('/add', async (req, res) => {
   }
 });
 
+router.get('/search', async (req, res) => {
+  try {
+
+    const search_all = await item.findAll();
+
+    if (!search_all[0]) {
+      res.status(404).json({
+        message: 'search not found',
+      });
+    }
+
+    res.json({ data: search_all[0] });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Internal Server Error',
+    });
+  }
+});
+
+router.get('/search/:type_select', async (req, res) => {
+  try {
+    const { type_select } = req.params;
+    console.log(type_select);
+    if (!type_select) {
+      res.status(400).json({
+        message: 'type not found',
+      });
+    }
+
+    const search_type = await item.findAll({ where: { type: type_select } });
+
+    if (!search_type[0]) {
+      res.status(404).json({
+        message: 'search not found',
+      });
+    }
+
+    res.json({ data: search_type });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Internal Server Error',
+    });
+  }
+});
+
 
 module.exports = router;

@@ -6,8 +6,10 @@ item.init(
   {
     name: DataTypes.STRING,
     option_id: DataTypes.BIGINT,
-    price : DataTypes.BIGINT,
-    defaultValue : 0,
+    price : {
+      type : DataTypes.BIGINT,
+      defaultValue : 0
+    },
     type : DataTypes.ENUM("coffee","juice","food"),
     amount : DataTypes.BIGINT,
     createdAt: DataTypes.TIME,
