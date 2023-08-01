@@ -9,7 +9,7 @@ export default () => {
   });
 
   item_order_customer.belongsTo(item, {
-    sourceKey: 'id',
+    sourceKey: 'item_id',
     foreignKey: 'item_id',
   });
 };

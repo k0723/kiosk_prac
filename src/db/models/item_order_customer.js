@@ -5,8 +5,11 @@ class item_order_customer extends Model {}
 
 item_order_customer.init(
   {
-    item_id: DataTypes.BIGINT,
-    order_customer_id: DataTypes.BIGINT,
+    item_id: {type : DataTypes.BIGINT,
+    foreignKey : true},
+    order_customer_id: {
+    type : DataTypes.BIGINT,
+    foreignKey : true},
     amount : DataTypes.BIGINT,
   },
   {
