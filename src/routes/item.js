@@ -1,7 +1,7 @@
 import express from 'express';
 // import middleware from '../middleware/middleware';
 import { option, item } from '../db';
-
+import middleware from '../middleware/node_cache';
 const router = express.Router();
 
 
